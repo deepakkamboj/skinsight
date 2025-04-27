@@ -21,7 +21,7 @@
 | Geolocation API | Google Places API | Suggest nearby clinics/specialists if user needs in-person follow-up. |  
 | Knowledge Graphs for Recommendations | PyKEEN, NetworkX, CLIPS | Build rule-based systems and knowledge graphs for personalized health advice. |  
 | User Monitoring | Custom Encrypted Database (AWS S3 / PostgreSQL) | Track user symptoms and lifestyle changes over time. |  
-| Analytics & Visualization | Matplotlib, Seaborn | Visualize probabilities and health tracking metrics for users. |  
+| Analytics & Visualization | PowerBI or Tableu | Visualize probabilities and health tracking metrics for users. |  
 | Security & Encryption | End-to-end Encryption, Encrypted Storage | Protect personal health information (PHI) and sensitive data. |  
 | Vector Storage for RAG | FAISS or Pinecone | Efficient semantic search and retrieval of medical documents. |
 
@@ -35,13 +35,34 @@ flowchart TD
     B -->|Route| C1[Multi-Agent System]
     B -->|External| C2[Bing Search]
     B -->|Internal| C3[GPT-4 Model]
-    C1 -->|Functions / Tools| D[External AI Services]
+    C1 -->|Functions/Tools| D[Internal Tools]
+    C1 -->|External Services| E[External AI Services]
+    
+    D --> D1[ImageScanAgent]
+    D --> D2[FollowUpQuestionAgent]
+    D --> D3[ConditionDetectionAgent]
+    D --> D4[SymptomTrackerAgent]
+
+
+    E --> E1[Google Vision API]
+    E --> E2[TensorFlow / PyTorch Models]
+    E --> E3[Skincare Product APIs]
+    E --> E4[Google Places API]
+
+    B -->|Access| M[Memory / History Storage]
+
+    D --> F[RAG Pipeline]
+    F -->|Load/Split/Embed| G[Vector Storage - Pinecone]
+    G -->|Retrieve| F
+
     C3 -->|Generate Response| B
     B -->|Final Response| A
-    D --> E[RAG Pipeline]
-    E -->|Load/Split/Embed| F[Vector Storage (FAISS / Pinecone)]
-    F -->|Retrieve| E
-   ```
+
+
+
+
+ ```
+
     
 ## 🔁 Flow:
 
